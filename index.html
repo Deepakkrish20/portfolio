@@ -25,6 +25,14 @@
     --card-shadow: rgba(0, 0, 0, 0.4);
     --nav-bg: rgba(9, 9, 11, 0.75);
     
+    --podium-grad-0: rgba(20,20,25,0);
+    --podium-grad-40: rgba(20,20,25,0.8);
+    --podium-grad-100: rgba(20,20,25,0.9);
+    --podium-hover-40: rgba(157,78,221,0.1);
+    --podium-hover-100: rgba(157,78,221,0.2);
+    --icon-shadow: rgba(255,255,255,0.1);
+    --text-strong: #ffffff;
+    
     --btn-primary-bg: var(--primary);
     --btn-primary-hover: #8b3dcc;
     --btn-secondary-border: var(--glass-border-strong);
@@ -50,6 +58,14 @@
     --glass-border-strong: #e5e7eb;
     --card-shadow: rgba(0, 0, 0, 0.04);
     --nav-bg: rgba(255, 255, 255, 0.7);
+    
+    --podium-grad-0: rgba(248,249,251,0);
+    --podium-grad-40: rgba(248,249,251,0.9);
+    --podium-grad-100: rgba(248,249,251,1);
+    --podium-hover-40: rgba(99,102,241,0.05);
+    --podium-hover-100: rgba(99,102,241,0.1);
+    --icon-shadow: rgba(0,0,0,0.1);
+    --text-strong: var(--primary);
     
     --btn-primary-bg: #6366f1;
     --btn-primary-hover: #4f46e5;
@@ -648,8 +664,9 @@
     margin-bottom: 20px;
   }
 
+  .hero-text p strong,
   .about-text p strong {
-    color: #e5e7eb;
+    color: var(--text-strong);
     font-weight: 600;
   }
 
@@ -676,6 +693,54 @@
     background: var(--glass-bg-hover);
     border-color: var(--glass-border-hover);
     box-shadow: 0 15px 35px var(--card-shadow);
+  }
+
+  /* Light mode explicit styling for About cards */
+  [data-theme="light"] .about-card {
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    position: relative;
+    overflow: hidden;
+  }
+
+  [data-theme="light"] .about-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.05), transparent);
+    transition: all 0.6s ease;
+    z-index: 0;
+  }
+
+  [data-theme="light"] .about-card:hover::before {
+    left: 100%;
+  }
+
+  [data-theme="light"] .about-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+
+  [data-theme="light"] .about-card .card-icon,
+  [data-theme="light"] .about-card .card-title,
+  [data-theme="light"] .about-card .card-desc {
+    position: relative;
+    z-index: 1;
+  }
+
+  [data-theme="light"] .about-card .card-icon {
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  [data-theme="light"] .about-card:hover .card-icon {
+    transform: scale(1.15) rotate(8deg);
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+    border-color: transparent !important;
   }
 
   .card-icon {
@@ -937,6 +1002,60 @@
     background: var(--glass-bg-hover);
   }
 
+  /* Unique Light Theme Styles for Skills */
+  [data-theme="light"] .skill-card {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02), inset 0 0 0 1px rgba(255,255,255,0.5);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  /* Bright Gradient Top Line Reveal */
+  [data-theme="light"] .skill-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 6px;
+    background: linear-gradient(90deg, var(--primary), var(--magenta));
+    opacity: 0.8;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  [data-theme="light"] .skill-card:hover::after {
+    transform: scaleX(1);
+  }
+
+  [data-theme="light"] .skill-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(99, 102, 241, 0.1);
+    border-color: transparent;
+  }
+
+  /* Light Theme Badge Restyling */
+  [data-theme="light"] .skill-badge {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #334155;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+  }
+
+  [data-theme="light"] .skill-badge:hover {
+    background: #ffffff;
+    border-color: var(--primary);
+    color: var(--primary);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.15);
+    transform: translateY(-4px) scale(1.05);
+  }
+  
+  [data-theme="light"] .skill-category-icon {
+    background: #f1f5f9;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
   .skill-category {
     font-family: 'Outfit', sans-serif;
     font-size: 1.25rem;
@@ -1105,138 +1224,83 @@
     font-size: 1.05rem;
   }
 
-  .contact-form-wrapper {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 40px;
-    backdrop-filter: blur(10px);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .contact-form {
+  .contact-visual {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    position: relative;
-    z-index: 2;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .form-group label {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    font-weight: 500;
-  }
-
-  .form-input {
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
-    border-radius: 12px;
-    padding: 14px 16px;
-    color: var(--text-main);
-    font-size: 1rem;
-    font-family: 'Inter', sans-serif;
-    transition: all 0.3s ease;
+    min-height: 400px;
+    position: relative;
+    opacity: 0.85;
   }
 
-  .form-input:focus {
-    outline: none;
-    border-color: var(--primary);
-    background: var(--input-focus);
-    box-shadow: 0 0 0 3px rgba(157, 78, 221, 0.2);
-  }
-
-  textarea.form-input {
-    min-height: 140px;
-    resize: vertical;
-  }
-
-  .btn-submit {
-    margin-top: 10px;
-    padding: 16px;
-    background: linear-gradient(135deg, var(--primary), var(--blue-purple));
-    border: none;
-    border-radius: 12px;
-    color: #fff;
-    font-weight: 600;
-    font-size: 1.05rem;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  .quantum-spinner {
+    position: relative;
+    width: 250px;
+    height: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    transform-style: preserve-3d;
+    perspective: 1000px;
   }
 
-  .btn-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(157, 78, 221, 0.4);
-  }
-
-  .btn-submit svg {
-    transition: transform 0.3s ease;
-  }
-
-  .btn-submit:hover svg {
-    transform: translateX(4px);
-  }
-
-  .form-success {
+  .quantum-spinner .ring {
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: var(--form-success-bg);
-    backdrop-filter: blur(10px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.4s ease;
-  }
-
-  .form-success.active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .success-icon {
-    width: 60px;
-    height: 60px;
-    background: rgba(16, 185, 129, 0.1);
-    color: #10b981;
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    border: 2px solid rgba(16, 185, 129, 0.2);
-    transform: scale(0.5);
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid transparent;
   }
 
-  .form-success.active .success-icon {
-    transform: scale(1);
+  .quantum-spinner .ring-1 {
+    width: 100%;
+    height: 100%;
+    border-top-color: var(--primary);
+    border-bottom-color: var(--magenta);
+    animation: spin-axis-1 8s linear infinite;
   }
 
-  .form-success h3 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+  .quantum-spinner .ring-2 {
+    width: 75%;
+    height: 75%;
+    border-right-color: var(--magenta);
+    border-left-color: var(--primary);
+    animation: spin-axis-2 6s linear infinite;
   }
 
-  .form-success p {
-    color: var(--text-muted);
-    text-align: center;
+  .quantum-spinner .ring-3 {
+    width: 50%;
+    height: 50%;
+    border-top-color: var(--primary);
+    animation: spin-axis-3 4s linear infinite;
+  }
+
+  .quantum-spinner .core {
+    width: 20%;
+    height: 20%;
+    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+    border-radius: 50%;
+    box-shadow: 0 0 40px var(--primary), 0 0 80px var(--magenta);
+    animation: pulse-core 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes spin-axis-1 {
+    0% { transform: rotateX(60deg) rotateY(0deg) rotateZ(0deg); }
+    100% { transform: rotateX(60deg) rotateY(360deg) rotateZ(360deg); }
+  }
+
+  @keyframes spin-axis-2 {
+    0% { transform: rotateX(0deg) rotateY(60deg) rotateZ(0deg); }
+    100% { transform: rotateX(360deg) rotateY(60deg) rotateZ(360deg); }
+  }
+
+  @keyframes spin-axis-3 {
+    0% { transform: rotateX(45deg) rotateY(45deg) rotateZ(0deg); }
+    100% { transform: rotateX(45deg) rotateY(45deg) rotateZ(360deg); }
+  }
+
+  @keyframes pulse-core {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    100% { transform: scale(1.2); opacity: 1; }
   }
 
   /* Scroll Reveal Classes */
@@ -1292,6 +1356,290 @@
       transform: none;
       animation: fadeInLoad 1s ease forwards;
     }
+  }
+
+  /* Certificates Section */
+  .certificates-section {
+    min-height: auto;
+    padding: 100px 5%;
+    background: transparent; 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .certificates-header {
+    text-align: center;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .certificates-header .section-title::before {
+    display: none; 
+  }
+
+  .certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .cert-card {
+    position: relative;
+    padding-top: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* The futuristic bracket/podium */
+  .cert-info {
+    width: 100%;
+    background: linear-gradient(180deg, var(--podium-grad-0) 0%, var(--podium-grad-40) 40%, var(--podium-grad-100) 100%);
+    border: 1px solid var(--glass-border);
+    border-bottom: 2px solid var(--primary);
+    border-radius: 12px;
+    padding: 80px 20px 40px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    clip-path: polygon(5% 0, 95% 0, 100% 15%, 100% 100%, 0 100%, 0 15%);
+  }
+
+  .cert-card:hover .cert-info {
+    background: linear-gradient(180deg, var(--podium-grad-0) 0%, var(--podium-hover-40) 40%, var(--podium-hover-100) 100%);
+    border-bottom: 2px solid var(--magenta);
+    transform: translateY(5px);
+    box-shadow: 0 20px 40px var(--card-shadow);
+  }
+
+  .cert-thumb {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: var(--bg-dark);
+    border: 2px solid var(--glass-border-strong);
+    box-shadow: 0 0 30px var(--card-shadow), inset 0 0 20px var(--glass-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* The spinning radar/laser effect inside the orb */
+  .cert-thumb::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    background: conic-gradient(from 0deg, transparent 0%, transparent 70%, var(--primary) 100%);
+    animation: rotateOrb 3s linear infinite;
+    opacity: 0.3;
+  }
+
+  .cert-thumb::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: var(--bg-dark);
+    z-index: 1;
+  }
+
+  @keyframes rotateOrb {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .cert-thumb svg.tech-icon {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 0 10px var(--icon-shadow));
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .cert-card:hover .cert-thumb {
+    transform: translateY(-10px) scale(1.1);
+    border-color: var(--primary);
+    box-shadow: 0 10px 40px rgba(157,78,221,0.4), inset 0 0 20px rgba(157,78,221,0.2);
+  }
+
+  .cert-card:hover .cert-thumb::before {
+    opacity: 0.8;
+    background: conic-gradient(from 0deg, transparent 0%, transparent 70%, var(--magenta) 100%);
+  }
+
+  .cert-card:hover .cert-thumb svg.tech-icon {
+    transform: scale(1.2) rotate(5deg);
+    filter: drop-shadow(0 0 20px var(--primary));
+  }
+
+  /* The Hover Overlay inside the orb */
+  .cert-hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 20;
+    border-radius: 50%;
+  }
+
+  .cert-card:hover .cert-hover-overlay {
+    opacity: 1;
+  }
+
+  .click-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: scale(0.5) translateY(10px);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  .cert-card:hover .click-indicator {
+    transform: scale(1) translateY(0);
+  }
+
+  .click-indicator svg {
+    width: 20px;
+    height: 20px;
+    animation: bounce 1.5s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .cert-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    text-align: center;
+    position: relative;
+  }
+
+  .cert-card:hover .cert-title {
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--icon-shadow);
+    letter-spacing: 4px;
+  }
+  
+  /* Cyber lines in the podium */
+  .cert-info::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--primary), transparent);
+    opacity: 0.2;
+    transition: all 0.5s ease;
+  }
+
+  .cert-card:hover .cert-info::after {
+    opacity: 1;
+    height: 70px;
+    background: linear-gradient(to bottom, var(--magenta), transparent);
+  }
+
+  /* Cert Modal */
+  .cert-modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    z-index: 3000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cert-modal.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .cert-modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cert-modal.active .cert-modal-content {
+    transform: scale(1);
+  }
+
+  .cert-modal-frame {
+    width: 80vw;
+    height: 85vh;
+    max-width: 1000px;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.1);
+    background: white; /* Needed for PDFs */
+  }
+
+  .cert-modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+  }
+
+  .cert-modal-close:hover {
+    opacity: 1;
+    color: var(--magenta);
   }
 
   /* Hamburger Menu */
@@ -1408,9 +1756,6 @@
     .about-grid, .skills-grid {
       grid-template-columns: 1fr;
     }
-    .contact-form-wrapper {
-      padding: 24px;
-    }
   }
 
   /* Theme Switcher */
@@ -1503,6 +1848,7 @@
       <li><a href="#about" class="nav-item">About</a></li>
       <li><a href="#projects" class="nav-item">Projects</a></li>
       <li><a href="#skills" class="nav-item">Skills</a></li>
+      <li><a href="#certificates" class="nav-item">Certificates</a></li>
       <li><a href="#contact" class="btn-contact nav-item">Contact</a></li>
     </ul>
 
@@ -1519,9 +1865,9 @@
     <div class="hero-text">
       <h1 class="hero-anim hero-anim-1">Deepak N</h1>
       <div class="hero-role hero-anim hero-anim-2">AI Driven Full Stack Developer | Prompt Engineer</div>
-      <p class="hero-anim hero-anim-3">Building AI-powered applications and scalable full-stack systems that solve real-world problems.</p>
+      <p class="hero-anim hero-anim-3">Building <strong>AI-powered applications</strong> and <strong>scalable full-stack systems</strong> that solve real-world problems.</p>
       <div class="hero-buttons hero-anim hero-anim-4">
-        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="Deepak_N_Resume.pdf" target="_blank" class="btn-primary">Resume</a>
         <a href="#contact" class="btn-secondary">Contact Me</a>
       </div>
     </div>
@@ -1790,6 +2136,130 @@
 </section>
 
 <!-- =========================================
+     CERTIFICATES SECTION
+     ========================================= -->
+<section id="certificates" class="certificates-section section-spy">
+  <div class="certificates-header reveal">
+    <h2 class="section-title">Certificates</h2>
+    <p class="skills-subtitle">Professional achievements & learning</p>
+  </div>
+
+  <div class="certificates-grid">
+    <!-- React Developer -->
+    <div class="cert-card reveal delay-1" data-cert="React developer(learnz).pdf">
+      <div class="cert-thumb">
+        <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="#61dafb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"></circle><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)"></ellipse><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(150 12 12)"></ellipse><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(90 12 12)"></ellipse></svg>
+        <div class="cert-hover-overlay">
+          <div class="click-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+            Click to View
+          </div>
+        </div>
+      </div>
+      <div class="cert-info">
+        <span class="cert-title">React Developer</span>
+      </div>
+    </div>
+
+    <!-- JavaScript Developer -->
+    <div class="cert-card reveal delay-2" data-cert="javascript (learnz).pdf">
+      <div class="cert-thumb">
+        <svg class="tech-icon" viewBox="0 0 24 24" fill="#f7df1e" stroke="#000" stroke-width="0.5"><path d="M3 3h18v18H3V3zm10 12c0-1.7-1.3-2-2-2.3-.7-.2-1-.4-1-.8 0-.5.6-.7 1.2-.7.8 0 1.5.3 2 .8l1.3-1.6C13.5 9.4 12.3 9 11.2 9c-1.8 0-3.3.9-3.3 2.7 0 1.7 1.3 2.1 2.4 2.4.6.1 1.2.3 1.2.9 0 .6-.7.8-1.4.8-.9 0-1.8-.4-2.5-1.1L6 16.5c1.1 1.2 2.6 1.8 4.2 1.8 2 0 3.7-1.1 3.7-3zM21 18l-1.8 1.4c-.6-1-1.3-1.8-2.6-1.8-1 0-1.6.3-1.6 1.4v.1c0 1.2 1.5 1.5 2.6 1.9 1.6.5 2.9 1.4 2.9 3.5 0 2.2-1.6 3.5-3.8 3.5-1.8 0-3.2-.8-4.1-2.4l1.8-1.5c.6.9 1.4 1.4 2.3 1.4 1.1 0 1.5-.4 1.5-1.1 0-1-1.3-1.3-2.5-1.7-1.7-.5-3.1-1.4-3.1-3.6 0-2.3 1.8-3.6 3.6-3.6 1.8 0 3 1.1 3.5 2.2z"/></svg>
+        <div class="cert-hover-overlay">
+          <div class="click-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+            Click to View
+          </div>
+        </div>
+      </div>
+      <div class="cert-info">
+        <span class="cert-title">JavaScript</span>
+      </div>
+    </div>
+
+    <!-- AI Basics -->
+    <div class="cert-card reveal delay-3" data-cert="AI basics.pdf">
+      <div class="cert-thumb">
+        <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+        <div class="cert-hover-overlay">
+          <div class="click-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+            Click to View
+          </div>
+        </div>
+      </div>
+      <div class="cert-info">
+        <span class="cert-title">AI Basics</span>
+      </div>
+    </div>
+
+    <!-- AI Python -->
+    <div class="cert-card reveal delay-4" data-cert="aipython(aifortechies).pdf">
+      <div class="cert-thumb">
+        <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+        <div class="cert-hover-overlay">
+          <div class="click-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+            Click to View
+          </div>
+        </div>
+      </div>
+      <div class="cert-info">
+        <span class="cert-title">AI Python</span>
+      </div>
+    </div>
+
+    <!-- Data Analytics -->
+    <div class="cert-card reveal delay-1" data-cert="data analytics (hplife).pdf">
+      <div class="cert-thumb">
+        <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        <div class="cert-hover-overlay">
+          <div class="click-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+            Click to View
+          </div>
+        </div>
+      </div>
+      <div class="cert-info">
+        <span class="cert-title">Data Analytics</span>
+      </div>
+    </div>
+
+    <!-- Oracle Foundation -->
+    <div class="cert-card reveal delay-2" data-cert="oracle foundation.pdf">
+      <div class="cert-thumb">
+        <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+        <div class="cert-hover-overlay">
+          <div class="click-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+            Click to View
+          </div>
+        </div>
+      </div>
+      <div class="cert-info">
+        <span class="cert-title">Oracle Foundation</span>
+      </div>
+    </div>
+
+    <!-- Effective Leadership -->
+    <div class="cert-card reveal delay-3" data-cert="effective leadership(hplife).pdf">
+      <div class="cert-thumb">
+        <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <div class="cert-hover-overlay">
+          <div class="click-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+            Click to View
+          </div>
+        </div>
+      </div>
+      <div class="cert-info">
+        <span class="cert-title">Effective Leadership</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
      CONTACT SECTION
      ========================================= -->
 <section id="contact" class="contact-section section-spy">
@@ -1802,7 +2272,7 @@
       
       <div class="contact-items">
         <!-- Email -->
-        <a href="mailto:krishdeepak747@gmail.com" class="contact-item reveal delay-1">
+        <a href="mailto:krishdeepak747@gmail.com?subject=Inquiry%20from%20Portfolio" class="contact-item reveal delay-1">
           <div class="contact-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
           </div>
@@ -1824,7 +2294,7 @@
         </a>
 
         <!-- LinkedIn -->
-        <a href="https://linkedin.com/in/deepakn" target="_blank" class="contact-item reveal delay-3">
+        <a href="https://www.linkedin.com/in/deepak-n-3a6a13340?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="contact-item reveal delay-3">
           <div class="contact-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
           </div>
@@ -1848,42 +2318,28 @@
       </div>
     </div>
 
-    <!-- Right Side: Form -->
-    <div class="contact-form-wrapper reveal-right delay-2">
-      <form class="contact-form" id="contactForm">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" class="form-input" placeholder="Your Name" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" class="form-input" placeholder="you@example.com" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" class="form-input" placeholder="Tell me about your project..." required></textarea>
-        </div>
-        
-        <button type="submit" class="btn-submit">
-          Send Message
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-        </button>
-      </form>
-
-      <!-- Fake Success Overlay -->
-      <div class="form-success" id="formSuccess">
-        <div class="success-icon">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        </div>
-        <h3>Message Sent!</h3>
-        <p>Thanks for reaching out.<br>I'll get back to you shortly.</p>
+    <!-- Right Side: Advanced Abstract Spinner -->
+    <div class="contact-visual reveal-right delay-2">
+      <div class="quantum-spinner">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        <div class="core"></div>
       </div>
     </div>
 
   </div>
 </section>
+
+<!-- Certificates Modal Container -->
+<div class="cert-modal" id="certModal">
+  <div class="cert-modal-content">
+    <button class="cert-modal-close" id="certModalClose">
+      Close <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <iframe src="" class="cert-modal-frame" id="certModalFrame" title="Certificate PDF"></iframe>
+  </div>
+</div>
 
 <script>
   // Theme Switch Logic
@@ -2051,33 +2507,47 @@
     });
   });
 
-  // 5. Contact Form Fake Submit Animation
-  const contactForm = document.getElementById('contactForm');
-  const formSuccess = document.getElementById('formSuccess');
+  // 5. Contact Form logic removed as requested.
 
-  if(contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const btn = contactForm.querySelector('.btn-submit');
-      const originalText = btn.innerHTML;
-      
-      btn.innerHTML = 'Sending...';
-      btn.style.opacity = '0.7';
-      btn.style.pointerEvents = 'none';
-      
-      setTimeout(() => {
-        formSuccess.classList.add('active');
-        contactForm.reset();
-        
-        btn.innerHTML = originalText;
-        btn.style.opacity = '1';
-        btn.style.pointerEvents = 'auto';
-        
-        setTimeout(() => {
-          formSuccess.classList.remove('active');
-        }, 3500);
-      }, 1200);
+  // 6. Certificates Modal Logic
+  const certCards = document.querySelectorAll('.cert-card');
+  const certModal = document.getElementById('certModal');
+  const certModalFrame = document.getElementById('certModalFrame');
+  const certModalClose = document.getElementById('certModalClose');
+
+  if (certCards && certModal) {
+    certCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const pdfSrc = card.getAttribute('data-cert');
+        // Add #toolbar=0&navpanes=0 for a cleaner PDF view in most browsers
+        certModalFrame.src = pdfSrc + '#toolbar=0&navpanes=0';
+        certModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // prevent scrolling behind modal
+      });
+    });
+
+    certModalClose.addEventListener('click', () => {
+      certModal.classList.remove('active');
+      certModalFrame.src = ''; // Clear iframe to stop memory leaks
+      document.body.style.overflow = '';
+    });
+
+    // Close on background click
+    certModal.addEventListener('click', (e) => {
+      if (e.target === certModal) {
+        certModal.classList.remove('active');
+        certModalFrame.src = '';
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && certModal.classList.contains('active')) {
+        certModal.classList.remove('active');
+        certModalFrame.src = '';
+        document.body.style.overflow = '';
+      }
     });
   }
 </script>
