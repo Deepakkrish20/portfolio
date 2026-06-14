@@ -2024,6 +2024,18 @@
       /* Needed for PDFs */
     }
 
+    .cert-modal-img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 80vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      object-fit: contain;
+    }
+
     .cert-modal-close {
       position: absolute;
       top: -40px;
@@ -3172,6 +3184,34 @@
           <span class="cert-title">Effective Leadership</span>
         </div>
       </div>
+
+      <!-- Acadex Pro Deployment -->
+      <div class="cert-card reveal delay-4" data-cert="acadexpro.jpeg">
+        <div class="cert-thumb">
+          <svg class="tech-icon" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.9 11.2a9 9 0 1 1-5.4-8.8"></path>
+            <path d="M12 2v20"></path>
+            <path d="M2 12h20"></path>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            <path d="M22 4L12 14.01l-3-3" stroke="#ffffff" stroke-width="2.5"></path>
+          </svg>
+          <div class="cert-hover-overlay">
+            <div class="click-indicator">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M15 3h6v6"></path>
+                <path d="M10 14L21 3"></path>
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              </svg>
+              Click to View
+            </div>
+          </div>
+        </div>
+        <div class="cert-info">
+          <span class="cert-title">Acadex Pro Deployment</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -3278,7 +3318,8 @@
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
-      <iframe src="" class="cert-modal-frame" id="certModalFrame" title="Certificate PDF"></iframe>
+      <iframe src="" class="cert-modal-frame" id="certModalFrame" title="Certificate PDF" style="display: none;"></iframe>
+      <img src="" class="cert-modal-img" id="certModalImage" alt="Certificate Image" style="display: none;">
     </div>
   </div>
 
@@ -3451,40 +3492,49 @@
     const certCards = document.querySelectorAll('.cert-card');
     const certModal = document.getElementById('certModal');
     const certModalFrame = document.getElementById('certModalFrame');
+    const certModalImage = document.getElementById('certModalImage');
     const certModalClose = document.getElementById('certModalClose');
 
     if (certCards && certModal) {
+      const closeModal = () => {
+        certModal.classList.remove('active');
+        certModalFrame.src = '';
+        certModalImage.src = '';
+        certModalFrame.style.display = 'none';
+        certModalImage.style.display = 'none';
+        document.body.style.overflow = '';
+      };
+
       certCards.forEach(card => {
         card.addEventListener('click', () => {
           const pdfSrc = card.getAttribute('data-cert');
-          // Add #toolbar=0&navpanes=0 for a cleaner PDF view in most browsers
-          certModalFrame.src = pdfSrc + '#toolbar=0&navpanes=0';
+          if (pdfSrc.endsWith('.pdf')) {
+            certModalFrame.src = pdfSrc + '#toolbar=0&navpanes=0';
+            certModalFrame.style.display = 'block';
+            certModalImage.style.display = 'none';
+          } else {
+            certModalImage.src = pdfSrc;
+            certModalImage.style.display = 'block';
+            certModalFrame.style.display = 'none';
+          }
           certModal.classList.add('active');
           document.body.style.overflow = 'hidden'; // prevent scrolling behind modal
         });
       });
 
-      certModalClose.addEventListener('click', () => {
-        certModal.classList.remove('active');
-        certModalFrame.src = ''; // Clear iframe to stop memory leaks
-        document.body.style.overflow = '';
-      });
+      certModalClose.addEventListener('click', closeModal);
 
       // Close on background click
       certModal.addEventListener('click', (e) => {
         if (e.target === certModal) {
-          certModal.classList.remove('active');
-          certModalFrame.src = '';
-          document.body.style.overflow = '';
+          closeModal();
         }
       });
 
       // Close on escape key
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && certModal.classList.contains('active')) {
-          certModal.classList.remove('active');
-          certModalFrame.src = '';
-          document.body.style.overflow = '';
+          closeModal();
         }
       });
     }
