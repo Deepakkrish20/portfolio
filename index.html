@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Deepak - AI Developer</title>
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2309090b'/><polygon points='50,8 87,29 87,71 50,92 13,71 13,29' stroke='%2300e5ff' stroke-width='3.5' fill='none' stroke-linejoin='round' opacity='0.45'/><path d='M 28 26 L 38 20 L 38 80 L 28 74 Z' fill='%230052FF'/><circle cx='50' cy='8' r='4.5' fill='%2300e5ff'/><circle cx='50' cy='92' r='4.5' fill='%2300e5ff'/><path d='M 38 20 C 65 20, 80 32, 80 50 C 80 68, 65 80, 38 80 L 38 68 C 58 68, 68 59, 68 50 C 68 41, 58 32, 38 32 Z' fill='%2300e5ff' fill-opacity='0.85'/><path d='M 35 52 L 62 25 L 70 33 L 43 60 Z' fill='%23ffffff'/><path d='M 43 40 L 70 67 L 62 75 L 35 48 Z' fill='%23e2e8f0'/></svg>">
+  <link rel="icon" type="image/png" href="image.png">
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet">
@@ -2544,24 +2543,28 @@
       <div class="brand">
         <a href="#home" class="brand-logo-link" aria-label="Home">
           <svg class="brand-logo-svg" width="44" height="44" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Hexagon Outline Container -->
-            <polygon points="50,8 87,29 87,71 50,92 13,71 13,29" stroke="var(--logo-secondary)" stroke-width="3.5" fill="none" stroke-linejoin="round" opacity="0.45"/>
-            
-            <!-- Left Stem Pillar (Isometric) -->
-            <path d="M 28 26 L 38 20 L 38 80 L 28 74 Z" fill="var(--logo-primary)" />
-            
-            <!-- Floating Energy Nodes on Hexagon Vertices -->
-            <circle cx="50" cy="8" r="4.5" fill="var(--logo-secondary)" />
-            <circle cx="50" cy="92" r="4.5" fill="var(--logo-secondary)" />
-            
-            <!-- Outer D-Loop -->
-            <path d="M 38 20 C 65 20, 80 32, 80 50 C 80 68, 65 80, 38 80 L 38 68 C 58 68, 68 59, 68 50 C 68 41, 58 32, 38 32 Z" fill="var(--logo-secondary)" fill-opacity="0.85" />
-            
-            <!-- K Upper Diagonal (overlaps D Top Curve) -->
-            <path d="M 35 52 L 62 25 L 70 33 L 43 60 Z" fill="var(--logo-accent)" />
-            
-            <!-- K Lower Diagonal (overlaps D Bottom Curve) -->
-            <path d="M 43 40 L 70 67 L 62 75 L 35 48 Z" fill="var(--logo-muted)" />
+            <defs>
+              <linearGradient id="cyberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="var(--accent-purple)" />
+                <stop offset="50%" stop-color="var(--accent-violet)" />
+                <stop offset="100%" stop-color="var(--accent-magenta)" />
+              </linearGradient>
+              <filter id="cyberGlow" x="-10%" y="-10%" width="120%" height="120%">
+                <feGaussianBlur stdDeviation="4" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+            </defs>
+            <!-- Outer HUD orbit ring -->
+            <circle cx="50" cy="50" r="45" stroke="url(#cyberGrad)" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.35" />
+            <!-- Outer Hexagonal D Shape -->
+            <path d="M 32,22 H 54 L 74,40 V 60 L 54,78 H 32 V 22 Z" stroke="url(#cyberGrad)" stroke-width="4.5" stroke-linejoin="round" filter="url(#cyberGlow)" />
+            <!-- Inner Hexagonal D Shape -->
+            <path d="M 40,34 H 50 L 62,44 V 56 L 50,66 H 40 V 34 Z" stroke="var(--text-main)" stroke-width="2" stroke-linejoin="round" opacity="0.85" />
+            <!-- Coding Terminal Slash -->
+            <path d="M 44,56 L 56,44" stroke="url(#cyberGrad)" stroke-width="3" stroke-linecap="round" />
+            <!-- Central Glowing Node -->
+            <circle cx="50" cy="50" r="4.5" fill="var(--text-main)" />
+            <circle cx="50" cy="50" r="8" stroke="var(--accent-magenta)" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.8" />
           </svg>
         </a>
       </div>
@@ -2964,6 +2967,36 @@
           </div>
         </div>
       </div>
+
+      <div class="project-card reveal delay-5">
+        <div class="project-graphic">
+          <div class="abstract-shape"></div>
+          <div class="project-overlay">
+            <a href="#" class="project-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                </path>
+              </svg>
+              View Code
+            </a>
+            <a href="#" class="project-btn primary-btn">
+              Live Demo
+            </a>
+          </div>
+        </div>
+        <div class="project-info">
+          <h3 class="project-title">ARETE</h3>
+          <p class="project-desc">A comprehensive life management and self-motivation assistant. Track habits, streaks, tasks, and schedules while posting motivational reflections and utilizing dynamic calendar dynamics.</p>
+          <div class="tech-stack">
+            <span class="tech-pill">Flutter</span>
+            <span class="tech-pill">Dart</span>
+            <span class="tech-pill">Productivity</span>
+            <span class="tech-pill">Mobile App</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -2998,6 +3031,8 @@
           </div>
           <div class="skill-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
               alt="Java"> Java</div>
+          <div class="skill-badge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg"
+              alt="Dart"> Dart</div>
         </div>
       </div>
 
@@ -3031,6 +3066,9 @@
           <div class="skill-badge"><img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular">
             Angular</div>
+          <div class="skill-badge"><img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter">
+            Flutter</div>
         </div>
       </div>
 
